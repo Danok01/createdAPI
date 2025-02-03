@@ -1,8 +1,10 @@
-
 from flask import Flask, jsonify, request
 import json
+from flask_cors import CORS
+from datetime import datetime
 
 app = Flask(__name__)
+CORS(app)
 
 # 1. Load your JSON dataset
 try:
@@ -32,9 +34,11 @@ def add_data():
     if not new_data:
         return jsonify({"message": "No data provided"}), 400
 
-    # Validate new_data (check for required fields, etc.)
-    if "name" not in new_data: # Example validation
-        return jsonify({"message": "Missing 'name' in the input data"}), 400
+    # Get the current time in ISO 8601 format
+    now = datetime.utcnow()
+    iso_time = now.isoformat() + "Z"
+
+    new_data["current_datetime"] = iso_time # Add timestamp to data
 
     dataset.append(new_data) # Add to dataset
     try:
