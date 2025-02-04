@@ -11,7 +11,7 @@ CORS(app, resources={r"/*": {"origins": "*"}})
 @app.route("/", methods=["GET"])
 def get_root():
     """
-    Root endpoint that returns JSON response with email,
+    Endpoint that returns JSON response with email,
     current datetime (UTC ISO 8601),
     and GitHub URL.
     """
